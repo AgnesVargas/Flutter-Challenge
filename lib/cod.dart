@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class FlutterChallenge extends StatelessWidget {
+  const FlutterChallenge({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(primarySwatch: Colors.pink),
-      home: const OcultarVal(),
+      home: const MyHomePageWidget(),
     );
   }
 }
 
-class OcultarVal extends StatefulWidget {
-  const OcultarVal({Key? key}) : super(key: key);
+class MyHomePageWidget extends StatefulWidget {
+  const MyHomePageWidget({Key? key}) : super(key: key);
 
   @override
-  State<OcultarVal> createState() => MyHomePage();
+  State<MyHomePageWidget> createState() => MyHomePageState();
 }
 
-class MyHomePage extends State<OcultarVal> {
+class MyHomePageState extends State<MyHomePageWidget> {
   Widget listagemCrypto(
       String title, subtitle, trailing, double varDia, IconData icon) {
-    CorVariacao() {
+    alterarCorVariacaoDia() {
       if (varDia > 0) {
         return true;
       } else {
@@ -41,8 +41,9 @@ class MyHomePage extends State<OcultarVal> {
               padding: const EdgeInsets.fromLTRB(15, 5, 10, 0),
               decoration: BoxDecoration(
                   border: Border.all(width: 1, color: Colors.green.shade100),
-                  color:
-                      CorVariacao() ? Colors.green[200] : Colors.red.shade100,
+                  color: alterarCorVariacaoDia()
+                      ? Colors.green[200]
+                      : Colors.red.shade100,
                   borderRadius: const BorderRadius.all(Radius.circular(15)))),
         ]));
   }
@@ -102,13 +103,11 @@ class MyHomePage extends State<OcultarVal> {
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
-          // ignore: prefer_const_literals_to_create_immutables
-          items: [
-            const BottomNavigationBarItem(
-                icon: Icon(Icons.home), label: ("Home")),
-            const BottomNavigationBarItem(
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: ("Home")),
+            BottomNavigationBarItem(
                 icon: Icon(Icons.wallet_giftcard), label: ("Carteira")),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
                 icon: Icon(Icons.move_to_inbox), label: ("Movimentações")),
           ],
         ),
