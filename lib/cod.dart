@@ -49,53 +49,53 @@ class MyHomePageState extends State<MyHomePageWidget> {
   }
 
   String carteira = 'Carteira';
-  String value = 'R\$ 1.000,00';
-  String rend = '+R\$ 100,00';
+  String valor = 'R\$ 1.000,00';
+  String rendimento = '+R\$ 100,00';
   String cdi = '(100% do CDI)';
   String eth = 'ETH';
   String etherium = 'Etherium';
-  String valEth = 'R\$0,00';
-  double varDiaEth = 75;
+  String valorEth = 'R\$0,00';
+  double variacaoDiaEth = 75;
   String btc = 'BTC';
   String bitcoin = 'Bitcoin';
-  String valBtc = 'R\$1.000,00';
-  double varDiaBtc = 75;
+  String valorBtc = 'R\$1.000,00';
+  double variacaoDiaBtc = 75;
   String ltc = 'LTC';
   String litecoin = 'Litecoin';
   String valLtc = 'R\$0,00';
-  double varDiaLtc = -0.7;
-  String ocultarVal = '__________';
-  bool alterarVal = true;
+  double variacaoDiaLtc = -0.7;
+  String valorVazio = '__________';
+  bool alterarValor = true;
 
-  funcaoOcultarVal() {
-    if (alterarVal == true) {
-      return value;
+  ocultarValor() {
+    if (alterarValor == true) {
+      return valor;
     } else {
-      return ocultarVal;
+      return ocultarValor;
     }
   }
 
-  funcaoOcultarEthLtc() {
-    if (alterarVal == true) {
-      return valEth;
+  ocultarEthLtc() {
+    if (alterarValor == true) {
+      return valor;
     } else {
-      return ocultarVal;
+      return ocultarValor;
     }
   }
 
-  funcaoOcultarRend() {
-    if (alterarVal == true) {
-      return rend;
+  ocultarRend() {
+    if (alterarValor == true) {
+      return rendimento;
     } else {
-      return ocultarVal;
+      return ocultarValor;
     }
   }
 
-  funcaoOcultarCdi() {
-    if (alterarVal == true) {
+  ocultarCdi() {
+    if (alterarValor == true) {
       return cdi;
     } else {
-      return ocultarVal;
+      return ocultarValor;
     }
   }
 
@@ -136,9 +136,9 @@ class MyHomePageState extends State<MyHomePageWidget> {
               IconButton(
                   icon: const Icon(Icons.remove_red_eye),
                   onPressed: () {
-                    alterarVal = !alterarVal;
+                    alterarValor = !alterarValor;
                     setState(() {
-                      funcaoOcultarVal();
+                      ocultarValor();
                     });
                   }),
             ]),
@@ -147,7 +147,7 @@ class MyHomePageState extends State<MyHomePageWidget> {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(65, 10, 0, 0),
                 child: Text(
-                  funcaoOcultarVal(),
+                  ocultarValor(),
                   textAlign: TextAlign.left,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
@@ -165,7 +165,7 @@ class MyHomePageState extends State<MyHomePageWidget> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(55, 0, 0, 0),
                     child: Text(
-                      funcaoOcultarRend(),
+                      ocultarRend(),
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
@@ -174,7 +174,7 @@ class MyHomePageState extends State<MyHomePageWidget> {
                     ),
                   )),
               Text(
-                funcaoOcultarCdi(),
+                ocultarCdi(),
                 textAlign: TextAlign.left,
                 style: const TextStyle(
                   fontSize: 15,
@@ -188,11 +188,11 @@ class MyHomePageState extends State<MyHomePageWidget> {
                 height: 30,
               ),
               listagemCrypto(
-                  eth, etherium, funcaoOcultarEthLtc(), varDiaEth, Icons.money),
+                  eth, etherium, ocultarEthLtc(), variacaoDiaEth, Icons.money),
               listagemCrypto(
-                  btc, bitcoin, funcaoOcultarVal(), varDiaBtc, Icons.money),
+                  btc, bitcoin, ocultarValor(), variacaoDiaBtc, Icons.money),
               listagemCrypto(
-                  ltc, litecoin, funcaoOcultarEthLtc(), varDiaLtc, Icons.money),
+                  ltc, litecoin, ocultarEthLtc(), variacaoDiaLtc, Icons.money),
             ])
           ]),
         ));
