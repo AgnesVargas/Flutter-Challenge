@@ -1,17 +1,5 @@
 import 'package:flutter/material.dart';
 
-class FlutterChallenge extends StatelessWidget {
-  const FlutterChallenge({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.pink),
-      home: const MyHomePageWidget(),
-    );
-  }
-}
-
 class MyHomePageWidget extends StatefulWidget {
   const MyHomePageWidget({Key? key}) : super(key: key);
 
@@ -20,7 +8,7 @@ class MyHomePageWidget extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePageWidget> {
-  Widget listagemCrypto(
+  listagemCrypto(
       String title, subtitle, trailing, double varDia, IconData icon) {
     alterarCorVariacaoDia() {
       if (varDia > 0) {
@@ -30,22 +18,28 @@ class MyHomePageState extends State<MyHomePageWidget> {
       }
     }
 
-    return ListTile(
-        leading: Icon(icon),
-        title: Text(title),
-        subtitle: Text(subtitle),
-        trailing: Column(children: [
-          Text(trailing),
-          Container(
-              child: Text(varDia.toString() + '%'),
-              padding: const EdgeInsets.fromLTRB(15, 5, 10, 0),
-              decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: Colors.green.shade100),
-                  color: alterarCorVariacaoDia()
-                      ? Colors.green[200]
-                      : Colors.red.shade100,
-                  borderRadius: const BorderRadius.all(Radius.circular(15)))),
-        ]));
+    return InkWell(
+        onTap: () {
+          Navigator.pushNamed(context, '/home');
+        },
+        child: ListTile(
+            leading: Icon(icon),
+            title: Text(title),
+            subtitle: Text(subtitle),
+            trailing: Column(children: [
+              Text(trailing),
+              Container(
+                  child: Text(varDia.toString() + '%'),
+                  padding: const EdgeInsets.fromLTRB(15, 5, 10, 0),
+                  decoration: BoxDecoration(
+                      border:
+                          Border.all(width: 1, color: Colors.green.shade100),
+                      color: alterarCorVariacaoDia()
+                          ? Colors.green[200]
+                          : Colors.red.shade100,
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(15)))),
+            ])));
   }
 
   String carteira = 'Carteira';
@@ -64,45 +58,21 @@ class MyHomePageState extends State<MyHomePageWidget> {
   String litecoin = 'Litecoin';
   String valLtc = 'R\$0,00';
   double variacaoDiaLtc = -0.7;
-  String valorVazio = '__________';
+  String mascaraValores = '__________';
   bool alterarValor = true;
 
   ocultarValor() {
     if (alterarValor == true) {
       return valor;
     } else {
-      return ocultarValor;
+      return mascaraValores;
     }
   }
 
-  ocultarEthLtc() {
-    if (alterarValor == true) {
-      return valor;
-    } else {
-      return ocultarValor;
-    }
-  }
-
-  ocultarRend() {
-    if (alterarValor == true) {
-      return rendimento;
-    } else {
-      return ocultarValor;
-    }
-  }
-
-  ocultarCdi() {
-    if (alterarValor == true) {
-      return cdi;
-    } else {
-      return ocultarValor;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget paginaInicial() {
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
+          currentIndex: 1,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: ("Home")),
             BottomNavigationBarItem(
@@ -165,7 +135,7 @@ class MyHomePageState extends State<MyHomePageWidget> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(55, 0, 0, 0),
                     child: Text(
-                      ocultarRend(),
+                      ocultarValor(),
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
@@ -174,7 +144,7 @@ class MyHomePageState extends State<MyHomePageWidget> {
                     ),
                   )),
               Text(
-                ocultarCdi(),
+                ocultarValor(),
                 textAlign: TextAlign.left,
                 style: const TextStyle(
                   fontSize: 15,
@@ -188,13 +158,24 @@ class MyHomePageState extends State<MyHomePageWidget> {
                 height: 30,
               ),
               listagemCrypto(
-                  eth, etherium, ocultarEthLtc(), variacaoDiaEth, Icons.money),
+                  eth, etherium, ocultarValor(), variacaoDiaEth, Icons.money),
               listagemCrypto(
                   btc, bitcoin, ocultarValor(), variacaoDiaBtc, Icons.money),
               listagemCrypto(
-                  ltc, litecoin, ocultarEthLtc(), variacaoDiaLtc, Icons.money),
+                  ltc, litecoin, ocultarValor(), variacaoDiaLtc, Icons.money),
             ])
           ]),
         ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        theme: ThemeData(primarySwatch: Colors.pink),
+        home: const Scaffold(body: MyHomePageWidget()),
+        initialRoute: '/',
+        routes: {
+          '/home': (context) => const MyHomePageWidget(),
+        });
   }
 }
